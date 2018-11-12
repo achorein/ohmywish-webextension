@@ -1,6 +1,6 @@
 # WishSpace - WebExtension (Chrome / Firefox)
 
-Cette extension permet de rajouter facilement des souhaits sur le site de Wishing.space.
+Cette extension permet de rajouter facilement des souhaits sur le site de [Wishing.space](https://www.wishing.space).
 
 Portée sur :
 * Chrome : https://chrome.google.com/webstore/detail/wishing-space-extension/dbplipoilikkimhhencoefbhehimefba
