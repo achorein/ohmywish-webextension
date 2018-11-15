@@ -5,6 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build-ff": "vue-cli-service build && mv dist/manifest.firefox.json dist/manifest.json && rm dist/manifest.chrome.json",
+    "build-chrome": "vue-cli-service build && mv dist/manifest.chrome.json dist/manifest.json && rm dist/manifest.firefox.json",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

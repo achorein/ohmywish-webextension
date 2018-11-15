@@ -3,17 +3,24 @@ node_js:
   - "lts/*"
 
 script:
-  - yarn build
+  - mkdir release
+  - yarn build-chrome
+  - cd dist && zip wishing-space-webextension-chrome.zip ./ && mv *.zip ../release
+  - yarn build-ff
+  - cd dist && zip wishing-space-webextension-firefox.zip ./ && mv *.zip ../release
  
 before_deploy:
-  - cd build
-  - zip wishing-space-webextension-${TRAVIS_TAG}.zip ./
+  - cd release
+  - mv wishing-space-webextension-chrome.zip wishing-space-webextension-chrome-${TRAVIS_TAG}.zip
+  - mv wishing-space-webextension-firefox.zip wishing-space-webextension-firefox-${TRAVIS_TAG}.zip
 
 deploy:
   - provider: releases
     api_key:
       secure: $GITHUB_OAUTHKEY
-    file: build/wishing-space-webextension-${TRAVIS_TAG}.zip
+    file: 
+      - build/wishing-space-webextension-chrome-${TRAVIS_TAG}.zip
+      - build/wishing-space-webextension-firefox-${TRAVIS_TAG}.zip
     skip_cleanup: true
     on:
       tags: true
