@@ -2,6 +2,18 @@ language: node_js
 node_js:
   - "lts/*"
 
-install:
-  - yarn install
+script:
   - yarn build
+ 
+before_deploy:
+  - cd build
+  - zip wishing-space-webextension-${TRAVIS_TAG}.zip ./
+
+deploy:
+  - provider: releases
+    api_key:
+      secure: $GITHUB_OAUTHKEY
+    file: build/wishing-space-webextension-${TRAVIS_TAG}.zip
+    skip_cleanup: true
+    on:
+      tags: true
