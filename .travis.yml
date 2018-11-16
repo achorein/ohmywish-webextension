@@ -5,10 +5,10 @@ node_js:
 script:
   - mkdir release
   - yarn build-chrome
-  - cd dist && zip wishing-space-webextension-chrome.zip ./ && mv *.zip ../release
+  - cd dist && zip -r9 wishing-space-webextension-chrome.zip * && mv *.zip ../release ; cd ..
   - yarn build-ff
-  - cd dist && zip wishing-space-webextension-firefox.zip ./ && mv *.zip ../release
- 
+  - cd dist && zip -r9 wishing-space-webextension-firefox.zip * && mv *.zip ../release ; cd ..
+
 before_deploy:
   - cd release
   - mv wishing-space-webextension-chrome.zip wishing-space-webextension-chrome-${TRAVIS_TAG}.zip
