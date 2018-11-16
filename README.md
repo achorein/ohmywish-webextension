@@ -1,5 +1,7 @@
 # WishSpace - WebExtension (Chrome / Firefox)
 
+[![Build Status](https://travis-ci.org/achorein/wishspace-webextension.svg?branch=master)](https://travis-ci.org/achorein/wishspace-webextension)
+
 Cette extension permet de rajouter facilement des souhaits sur le site de [Wishing.space](https://www.wishing.space).
 
 Portée sur :

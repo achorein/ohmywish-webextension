@@ -8,7 +8,7 @@ script:
   - cd dist && zip -r9 wishing-space-webextension-chrome.zip * && mv *.zip ../release ; cd ..
   - yarn build-ff
   - cd dist && zip -r9 wishing-space-webextension-firefox.zip * && mv *.zip ../release ; cd ..
-
+ 
 before_deploy:
   - cd release
   - mv wishing-space-webextension-chrome.zip wishing-space-webextension-chrome-${TRAVIS_TAG}.zip
@@ -19,8 +19,8 @@ deploy:
     api_key:
       secure: $GITHUB_OAUTHKEY
     file: 
-      - build/wishing-space-webextension-chrome-${TRAVIS_TAG}.zip
-      - build/wishing-space-webextension-firefox-${TRAVIS_TAG}.zip
+      - release/wishing-space-webextension-chrome-${TRAVIS_TAG}.zip
+      - release/wishing-space-webextension-firefox-${TRAVIS_TAG}.zip
     skip_cleanup: true
     on:
       tags: true
