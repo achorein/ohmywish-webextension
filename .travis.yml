@@ -10,9 +10,8 @@ script:
   - cd dist && zip -r9 wishing-space-webextension-firefox.zip * && mv *.zip ../release ; cd ..
  
 before_deploy:
-  - cd release
-  - mv wishing-space-webextension-chrome.zip wishing-space-webextension-chrome-${TRAVIS_TAG}.zip
-  - mv wishing-space-webextension-firefox.zip wishing-space-webextension-firefox-${TRAVIS_TAG}.zip
+  - mv release/wishing-space-webextension-chrome.zip release/wishing-space-webextension-chrome-${TRAVIS_TAG}.zip
+  - mv release/wishing-space-webextension-firefox.zip release/wishing-space-webextension-firefox-${TRAVIS_TAG}.zip
 
 deploy:
   - provider: releases
