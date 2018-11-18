@@ -92,7 +92,7 @@ export default {
     reinit() {
       this.clearMessages()
       // clean persistent cache (mixins)
-      this.storageSet({user: {}}, _ => {
+      this.storageSet({user: this.getDefaultUser()}, _ => {
         this.showMessage('Identifiants réinitialisés, vous n\'êtes plus connecté !', 'success');
       });
       this.email = null;
@@ -104,7 +104,7 @@ export default {
    */
   created() {
     // get persistent cache data (mixins)
-    this.storageGet({user: {}}, storage => {
+    this.storageGet({user: this.getDefaultUser()}, storage => {
       this.email = storage.user.email;
       this.password = storage.user.password;
     });

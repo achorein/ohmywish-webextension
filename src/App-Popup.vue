@@ -8,7 +8,6 @@
       <WishForm v-if="connected && !added" :wishModel="wishModel" @wishAdded="wishAdded"></WishForm>
       <WishAdded v-if="connected && added" :url="addedUrl"></WishAdded>
     </div>
-    <Footer :connected="connected" @connect="connect" @addWish="addWish" v-if="!added"></Footer>
   </div>
 </template>
 
@@ -22,7 +21,6 @@ import Messages from './components/common/Messages.vue'
 import WishAdded from './components/popup/WishAdded.vue'
 import WishForm from './components/popup/WishForm.vue'
 import LoginForm from './components/popup/LoginForm.vue'
-import Footer from './components/popup/Footer.vue'
 
 export default {
   name: 'app',
@@ -32,13 +30,12 @@ export default {
     Messages,
     WishAdded,
     WishForm,
-    LoginForm,
-    Footer
+    LoginForm
   },
   data() {
     return {
       connected: false,
-      user: {},
+      user: this.getDefaultUser(),
       added: false,
       addedUrl: null,
       wishModel: {nom: null, lien: null, category: null, prix: null, happiness: null, image: null, info: null}
@@ -48,9 +45,8 @@ export default {
     /**
      * When extension ready to use (userLogged event), parse the current tab page and fill form
      */
-    processCurrentTabPage() {
+    processCurrentTabPage(user) {
       console.log('Processing current tab page...')
-      this.$emit('userLogged', this.user) // send to all children (Header component)
       this.$store.commit('clearMessages') // mutate store
       this.connected = true
       // retrieved users lists and follows from API (mixins)
@@ -102,20 +98,6 @@ export default {
       this.added = true;
       this.addedUrl = url
     },
-    /**
-     * Handle "connect" event from children
-     */
-    connect() {
-      // send signal to all children (LoginForm)
-      this.$emit('connect')
-    },
-    /**
-     * Handle "addWish" event from children
-     */
-    addWish() {
-      // send signal to all children (WishForm)
-      this.$emit('addWish')
-    }
   },
   /**
    * On init actions (opening extension popup)
@@ -124,7 +106,7 @@ export default {
     console.log('Starting...')
     const that = this
     // get data from persistent cache (mixins)
-    this.storageGet({ user: {} }, 
+    this.storageGet({ user: this.getDefaultUser() }, 
       storage => {
         if (!storage || !storage.user.email || storage.user.email === '') {
           that.showMessage('Avant d\'utiliser cette extension vous devez saisir vos identifiants.', 'warning')
@@ -141,6 +123,7 @@ export default {
 </script>
 
 <style lang="scss">
+$breadcrumb-divider: quote(">");
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
 @import '../node_modules/bootstrap-vue/dist/bootstrap-vue.css';
 @import './assets/app.scss';

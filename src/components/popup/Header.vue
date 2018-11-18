@@ -2,18 +2,26 @@
     <div class="modal-header panel-heading d-flex">
         <font-awesome-icon :icon="icons.plus" size="2x" class="mr-2 align-self-center" />
         <h4 class="modal-title">Ajouter un souhait</h4>
-        <img id="user-avatar" class="rounded ml-auto" v-if="userIcon" :src="userIcon"
+        <WsImg :listInfo="user" size="42" v-if="user.prenom"
             v-b-tooltip.hover placement="bottom"
-            :title="'Connecter en tant que ' + user.prenom + ' ' + user.nom"
-            height="42"/>
+            :title="'Connecter en tant que ' + user.prenom + ' ' + user.nom"/>
     </div>
 </template>
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+
+import { common } from '../../mixins/Common'
+
+import WsImg from './WsImg'
+
 export default {
     name: 'Header',
+    mixins: [common],
+    components: {
+        WsImg
+    },
     props: {
         user: {
             type: Object,
@@ -22,42 +30,8 @@ export default {
     },
     data() {
         return {
-            icons: {plus: faPlus},
-            userIcon: null
+            icons: {plus: faPlus}
         }
-    },
-    methods: {
-        /**
-         * Compute user icon (gravatar, social, custom)
-         */
-        computeUserIcon() {
-            if (!this.user) { return }
-            let url = ''
-            let size = 42
-            if (this.user.gravstyle === 'social' && this.user.imageurl) {
-                url = this.user.imageurl
-            } else if (this.user.gravstyle === 'custom') {
-                url = 'https://image.wishing.space/user-' + this.user.hashcode + '.jpg'
-            } else {
-                url = 'http://www.gravatar.com/avatar/'+this.user.gravatar+'?r=pg&d='
-                if (this.user.gravstyle) {
-                    url += this.user.gravstyle
-                } else {
-                    url += 'identicon'
-                }
-                if (size) {
-                    url += '&s='+size
-                }
-            }
-            this.userIcon = url
-        }
-    },
-    /**
-     * On init actions
-     */
-    created() {
-        // listen on parent event (needed when auth successful in LoginForm component)
-        this.$parent.$on('userLogged', this.computeUserIcon)
     }
 }
 </script>

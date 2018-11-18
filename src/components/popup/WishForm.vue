@@ -1,114 +1,154 @@
 <template>
     <div>
-      <!-- WISH FORM -->
-      <form id="wishForm">
-        <input type="hidden" name="pageid"/>
-        <!-- Nom du wish -->
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label">Nom</label>
-          <div class="col-sm-9">
-            <input type="text" name="nom" class="form-control" maxlength="255"
-               v-model="wishModel.nom" @keyup="valueChanged('nom', wishModel.nom)"/>
-          </div>
-        </div>
-        <!-- Image(s) -->
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label">Image</label>
-          <div class="col-sm-6">
-            <input type="text" name="image" class="form-control" maxlength="1024"
-               v-model="wishModel.image" @keyup="valueChanged('image', wishModel.image)" />
-          </div>
-          <div class="col-sm-3">
-            <img id="image" class="thumb" :src="wishModel.image" v-if="wishModel.image"/>
-          </div>
-        </div>
-        <!-- Lien(s) -->
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label">Lien</label>
-          <div class="col-sm-9">
-            <input type="text" name="lien" class="form-control" maxlength="1024"
-              v-model="wishModel.lien" @keyup="valueChanged('lien', wishModel.lien)"/>
-          </div>
-        </div>
-        <!-- Niveau de désir -->
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label">Niveau de désir</label>
-          <div class="col-sm-9">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text">
-                  <font-awesome-icon :icon="icons.happiness" />
-                </span>
-              </div>
-              <input type="number" min="0" max="5" name="happiness" class="form-control" placeholder="Entre 1 et 5" 
-                 v-model="wishModel.happiness" @keyup="valueChanged('happiness', wishModel.happiness)"/>
-            </div>
-          </div>
-        </div>
-        <div class="mb-3">
-          <a id="show-more" class="btn btn-info" v-if="!showMore" @click="showMore=true"><font-awesome-icon :icon="icons.down" /> Plus de caractéristiques</a>
-          <a id="show-less" class="btn btn-info" v-if="showMore" @click="showMore=false"><font-awesome-icon :icon="icons.up" /> Moins de caractéristiques</a>
-        </div>
-        <div id="show-more-content" v-if="showMore">
-          <!-- Type de lien -->
-          <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Type de liens</label>
-            <div class="col-sm-5"><big>
-              <input type="radio" name="lientype" value="1" checked="checked" 
-                v-model="wishModel.lientype" @keyup="valueChanged('lientype', wishModel.lientype)" /> 
-                <font-awesome-icon :icon="icons.unlock" size="sm" class="ml-1"/> Libre  &nbsp; 
-              <input type="radio" name="lientype" value="2" 
-                v-model="wishModel.lientype" @keyup="valueChanged('lientype', wishModel.lientype)" /> 
-                <font-awesome-icon :icon="icons.lock" size="sm" class="ml-1"/> Stricte 
-            </big></div>
-          </div>
-          <!-- Catégorie -->
-          <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Catégorie</label>
-            <div class="col-sm-9">
-                <input type="text" name="category" class="form-control" placeholder="Maison" maxlength="255" 
-                  v-model="wishModel.category" @keyup="valueChanged('category', wishModel.category)"/>
-            </div>
-          </div>
-          <!-- Prix -->
-          <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Prix approximatif</label>
-            <div class="col-sm-9">
-              <div class="input-group">
-                <div class="input-group-prepend"><span class="input-group-text">&euro;</span></div>
-                <input type="number" min="0" name="prix" class="form-control" placeholder="Prix"
-                   v-model="wishModel.prix" @keyup="valueChanged('prix', wishModel.prix)"/>
-              </div>
-            </div>
-          </div>
-          <!-- D&eacutetails -->
-          <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Informations compl&eacute;mentaires</label>
-            <div class="col-sm-9">
-              <textarea class="form-control" name="info" placeholder="super commentaire" cols="35" rows="2" maxlength="255" style="resize: none"
-                 v-model="wishModel.info" @keyup="valueChanged('info', wishModel.info)"></textarea>
-            </div>
-          </div>
-        </div>
-      </form>
-      <!-- WISH FORM ERRORS -->
-      <div id="validation-errors" class="alert alert-danger" style="margin-bottom:0" v-if="validationErrors.length > 0">
-        <div v-for="error in validationErrors" :key="error">{{ error }}</div>
+      <div class="float-right">
+        <b-btn size="sm" :variant="tabIndex == 0 ? 'outline-success' : 'success'" @click="okAction()">
+          <span v-if="tabIndex == 0">Suivant</span>
+          <span v-else>Enregistrer</span>
+        </b-btn>
       </div>
+      <b-tabs small v-model="tabIndex">
+        <b-tab active>
+          <template slot="title">
+            <font-awesome-icon :icon="icons.wish"/> Caractéristiques du souhait
+          </template>
+          <!-- WISH FORM -->
+          <form class="mt-2" id="wishForm">
+            <input type="hidden" name="pageid"/>
+            <!-- Nom du wish -->
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">Nom</label>
+              <div class="col-sm-9">
+                <input type="text" name="nom" class="form-control" maxlength="255"
+                  v-model="wishModel.nom" @keyup="valueChanged('nom', wishModel.nom)"/>
+              </div>
+            </div>
+            <!-- Image(s) -->
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">Image</label>
+              <div class="col-sm-6">
+                <input type="text" name="image" class="form-control" maxlength="1024"
+                  v-model="wishModel.image" @keyup="valueChanged('image', wishModel.image)" />
+              </div>
+              <div class="col-sm-3">
+                <img id="image" class="thumb" :src="wishModel.image" v-if="wishModel.image"/>
+              </div>
+            </div>
+            <!-- Lien(s) -->
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">Lien</label>
+              <div class="col-sm-9">
+                <input type="text" name="lien" class="form-control" maxlength="1024"
+                  v-model="wishModel.lien" @keyup="valueChanged('lien', wishModel.lien)"/>
+              </div>
+            </div>
+            <!-- Niveau de désir -->
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">Niveau de désir</label>
+              <div class="col-sm-9">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <font-awesome-icon :icon="icons.happiness" />
+                    </span>
+                  </div>
+                  <input type="number" min="0" max="5" name="happiness" class="form-control" placeholder="Entre 1 et 5" 
+                    v-model="wishModel.happiness" @keyup="valueChanged('happiness', wishModel.happiness)"/>
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <a id="show-more" class="btn btn-info" v-if="!showMore" @click="showMore=true"><font-awesome-icon :icon="icons.down" /> Plus de caractéristiques</a>
+              <a id="show-less" class="btn btn-info" v-if="showMore" @click="showMore=false"><font-awesome-icon :icon="icons.up" /> Moins de caractéristiques</a>
+            </div>
+            <div id="show-more-content" v-if="showMore">
+              <!-- Type de lien -->
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Type de liens</label>
+                <div class="col-sm-5"><big>
+                  <input type="radio" name="lientype" value="1" checked="checked" 
+                    v-model="wishModel.lientype" @keyup="valueChanged('lientype', wishModel.lientype)" /> 
+                    <font-awesome-icon :icon="icons.unlock" size="sm" class="ml-1"/> Libre  &nbsp; 
+                  <input type="radio" name="lientype" value="2" 
+                    v-model="wishModel.lientype" @keyup="valueChanged('lientype', wishModel.lientype)" /> 
+                    <font-awesome-icon :icon="icons.lock" size="sm" class="ml-1"/> Stricte 
+                </big></div>
+              </div>
+              <!-- Catégorie -->
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Catégorie</label>
+                <div class="col-sm-9">
+                    <input type="text" name="category" class="form-control" placeholder="Maison" maxlength="255" 
+                      v-model="wishModel.category" @keyup="valueChanged('category', wishModel.category)"/>
+                </div>
+              </div>
+              <!-- Prix -->
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Prix approximatif</label>
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text">&euro;</span></div>
+                    <input type="number" min="0" name="prix" class="form-control" placeholder="Prix"
+                      v-model="wishModel.prix" @keyup="valueChanged('prix', wishModel.prix)"/>
+                  </div>
+                </div>
+              </div>
+              <!-- Détails -->
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Informations compl&eacute;mentaires</label>
+                <div class="col-sm-9">
+                  <textarea class="form-control" name="info" placeholder="super commentaire" cols="35" rows="2" maxlength="255" style="resize: none"
+                    v-model="wishModel.info" @keyup="valueChanged('info', wishModel.info)"></textarea>
+                </div>
+              </div>
+            </div>
+          </form>
+        </b-tab>
+        <b-tab @click="initList()">
+          <template slot="title">
+            <font-awesome-icon :icon="icons.users"/> Liste de destination
+          </template>
+          <!-- WISH FORM ERRORS -->
+          <div id="validation-errors" class="alert alert-danger" style="margin-bottom:0" v-if="validationErrors.length > 0">
+            <div v-for="error in validationErrors" :key="error">{{ error }}</div>
+          </div>
+          <div class="input-group mb-2 mt-2">
+            <div class="input-group-prepend"><span class="input-group-text"><font-awesome-icon :icon="icons.filter"/></span></div>
+            <input type="text" name="nom" class="form-control" maxlength="255" placeholder="Rechercher une liste"
+              v-model="searchText" @keyup="filterList()"/>
+          </div>
+          <b-list-group>
+            <b-list-group-item href="#" :active="follow.hashcode+'#'+follow.id === currentListValue"
+             v-for="follow in filteredFollowList" :key="follow.hashcode+'#'+follow.id"
+             @click="chooseList(follow.hashcode+'#'+follow.id, true)">
+              <WsImg :listInfo="follow"/> {{ follow.prenom+' '+follow.nom }}
+            </b-list-group-item>
+            <b-list-group-item href="#" :active="shared.hashcode+'#'+shared.id === currentListValue"
+             v-for="shared in filteredMyList" :key="shared.hashcode+'#'+shared.id"
+             @click="chooseList(shared.hashcode+'#'+shared.id, false)">
+              <WsImg :listInfo="shared"/> {{ shared.name }}
+            </b-list-group-item>
+          </b-list-group>
+        </b-tab>
+      </b-tabs>
     </div>
 </template>
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faThumbsUp, faChevronDown, faChevronUp, faLock, faUnlock } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faChevronUp, faLock, faUnlock, faUser, faUsers, faFilter } from '@fortawesome/free-solid-svg-icons'
+import { faThumbsUp, faFile } from '@fortawesome/free-regular-svg-icons'
 
 import { common } from '../../mixins/Common'
 import { chromeUtils } from '../../mixins/ChromeUtils'
 import { userService } from '../../mixins/UserService'
+import WsImg from './WsImg'
 
 export default {
   name: 'WishForm',
   mixins: [common, chromeUtils, userService],
+  components: {
+    WsImg
+  },
   props: {
     wishModel: {
       type: Object,
@@ -117,43 +157,79 @@ export default {
   },
   data() {
     return {
+      currentListType: '',
+      currentListValue: '',
+      tabIndex: 0,
+      searchText: '',
+      filteredMyList: [],
+      filteredFollowList: [],
       showMore: false,
       errors: null,
-      icons: {happiness: faThumbsUp, down: faChevronDown, up: faChevronUp, lock: faLock, unlock: faUnlock},
+      icons: {happiness: faThumbsUp, down: faChevronDown, up: faChevronUp, lock: faLock, unlock: faUnlock, user: faUser, users: faUsers, filter: faFilter, wish: faFile},
       validationErrors: []
     }
   },
   methods: {
+    initList() {
+      this.filteredFollowList = this.$store.state.followList
+      this.filteredMyList = this.$store.state.myList
+      this.filterList()
+    },
+    filterList() {
+      this.filteredFollowList = this.$store.state.followList.filter(follow => {
+        const listText = follow.prenom + ' ' + follow.nom
+        return listText.toLowerCase().includes(this.searchText.toLowerCase())
+      }) 
+      this.filteredMyList = this.$store.state.myList.filter(list => {
+        const listText = list.name
+        return listText.toLowerCase().includes(this.searchText.toLowerCase())
+      })
+    },
+    chooseList(value, isMine) {
+      this.currentListValue = value
+      this.currentListType = isMine ? 'mine' : 'follow'
+      this.validationErrors = []
+    },
+    okAction() {
+      if (this.tabIndex == 0) {
+        this.initList()
+        this.tabIndex++
+      } else {
+        this.submitForm()
+      }
+    },
     /**
      * Submit form to add a wish
      */
     submitForm() {
       // récupéaration des options de l'extension
-      this.storageGet({user: {}}, storage => {
+      this.storageGet({user: this.getDefaultUser()}, storage => {
         this.validationErrors = []
         const payload = {
           nom: this.wishModel.nom
         }
-        const typeList = this.$store.state.currentListType
-        const currentValue = this.$store.state.currentListValue
+        //const typeList = this.$store.state.currentListType
+        //const currentValue = this.$store.state.currentListValue
         let listinfo = null
         // check that a list has been selected (in footer)
-        if (typeList === 'follow') {
-          if (currentValue && currentValue.indexOf('#') !== -1) {
-            listinfo = currentValue.split('#')
+        if (this.currentListType === 'follow') {
+          if (this.currentListValue && this.currentListValue.indexOf('#') !== -1) {
+            listinfo = this.currentListValue.split('#')
             payload.userid = listinfo[1]
-          } else if (currentValue === '') {
+          } else if (this.currentListValue === '') {
             this.validationErrors.push('Veuillez choisir une liste de destination')
           } else {
             this.validationErrors.push('Impossible de récupérer la liste de destination')
           }
         } else {
-          let currentValue = this.$store.state.currentListValue
-          if (currentValue && currentValue.indexOf('#') !== -1) {
-            listinfo = currentValue.split('#')
+          // let currentValue = this.$store.state.currentListValue
+          if (this.currentListValue && this.currentListValue.indexOf('#') !== -1) {
+            listinfo = this.currentListValue.split('#')
             payload.sharedid = listinfo[1]
-          } else if (currentValue === '') {
+          } else if (this.currentListValue === '') {
             this.validationErrors.push('Veuillez choisir une liste de destination')
+          } else {
+            this.validationErrors.push('Impossible de récupérer la liste de destination')
           }
           payload.userid = storage.user.id
         }
@@ -242,13 +318,16 @@ export default {
         });
       });
     }
-  },
-  /**
-   * On init actions
-   */
-  created() {
-    // listen on parent event (needed for button click in footer)
-    this.$parent.$on('addWish', this.submitForm)
   }
 }
 </script>
+
+<style>
+ .nav-tabs .nav-link {
+   font-weight: bold;
+   color: #333 !important;
+ }
+.nav-tabs .nav-link.active {
+   background-color: #fcf8e3 !important;
+ }
+</style>

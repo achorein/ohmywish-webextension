@@ -23,6 +23,7 @@
           </div>
       </div>
     </form>
+    <button class="btn btn-primary" @click="connect(user)">Se connecter</button>
   </div>
 </template>
 
@@ -77,7 +78,7 @@ export default {
         } else {
           // already logged in
           axios.defaults.headers.common['Authorization'] = 'Bearer ' + user.token
-          this.$emit('userLogged')
+          this.$emit('userLogged', user)
         }
       })
       .catch(error => {
@@ -99,7 +100,7 @@ export default {
         const that = this // for storage callback
         this.storageSet({user: user}, _ => {
           axios.defaults.headers.common['Authorization'] = 'Bearer ' + user.token
-          that.$emit('userLogged')
+          that.$emit('userLogged', user)
         });
       })
       .catch(error => {
@@ -113,7 +114,7 @@ export default {
    * On init actions
    */
   created() {
-    // listen on parent event (needed for button click in footer)
+    // listen on parent event (needed for autoconnect)
     this.$parent.$on('connect', this.connect);
   }
 }

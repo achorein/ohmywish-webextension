@@ -72,7 +72,7 @@ const DATA_MY_LIST = [
     {
         "id": 4,
         "date": null,
-        "name": "Liste 4",
+        "name": "My List 4",
         "hashcode": "liste4",
         "paypalemail": null,
         "description": null,
@@ -94,7 +94,7 @@ const DATA_MY_LIST = [
     {
         "id": 20,
         "date": "2018-01-18T08:46:27.000Z",
-        "name": "Liste 20",
+        "name": "My List 20",
         "hashcode": "liste20",
         "paypalemail": null,
         "description": null,
@@ -119,8 +119,8 @@ const DATA_FOLLOW_LIST = [
     {
         "id": 5,
         "hashcode": "liste5",
-        "nom": "Liste",
-        "prenom": "5",
+        "nom": "Follow",
+        "prenom": "Mister5",
         "gravstyle": "none",
         "image": null,
         "imageurl": null,
@@ -131,8 +131,8 @@ const DATA_FOLLOW_LIST = [
     {
         "id": 29,
         "hashcode": "liste29",
-        "nom": "liste",
-        "prenom": "29",
+        "nom": "Follow",
+        "prenom": "Mister29",
         "gravstyle": null,
         "image": null,
         "imageurl": null,

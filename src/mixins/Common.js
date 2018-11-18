@@ -28,6 +28,31 @@ export const common = {
             } else {
             return ''
             }
+        },
+        getDefaultUser() {
+            return { 
+                admin: null, 
+                background: null, 
+                color: null, 
+                datederniereconnexion: null, 
+                dateinscription: null, 
+                datenaissance: null, 
+                email: null, 
+                gravatar: null, 
+                gravstyle: null, 
+                hashcode: null, 
+                id: null, 
+                image: null, 
+                imageurl: null, 
+                logged: null, 
+                nom: null, 
+                orderField: null, 
+                orderReverse: null, 
+                prenom: null, 
+                resareminder: null, 
+                restriction: null, 
+                token: null
+            }
         }
     }
 }
