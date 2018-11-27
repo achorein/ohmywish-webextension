@@ -5,7 +5,7 @@
     <div class="modal-body pb-0" id="content">
       <Messages></Messages>
       <LoginForm v-if="!connected" :user="user" @userLogged="processCurrentTabPage"></LoginForm>
-      <WishForm v-if="connected && !added" :wishModel="wishModel" @wishAdded="wishAdded"></WishForm>
+      <WishForm v-if="connected && !added" :user="user" :wishModel="wishModel" @wishAdded="wishAdded"></WishForm>
       <WishAdded v-if="connected && added" :url="addedUrl"></WishAdded>
     </div>
   </div>

@@ -9,7 +9,11 @@
       <b-tabs small v-model="tabIndex">
         <b-tab active>
           <template slot="title">
-            <font-awesome-icon :icon="icons.wish"/> Caractéristiques du souhait
+            <font-awesome-layers full-width class="fa-lg">
+              <font-awesome-icon :icon="icons.counter"/>
+              <font-awesome-layers-text transform="shrink-6" value="1" />
+            </font-awesome-layers> 
+            Caractéristiques du souhait
           </template>
           <!-- WISH FORM -->
           <form class="mt-2" id="wishForm">
@@ -105,26 +109,41 @@
         </b-tab>
         <b-tab @click="initList()">
           <template slot="title">
-            <font-awesome-icon :icon="icons.users"/> Liste de destination
+            <font-awesome-layers full-width class="fa-lg">
+              <font-awesome-icon :icon="icons.counter"/>
+              <font-awesome-layers-text transform="shrink-6" value="2" />
+            </font-awesome-layers>  
+            Liste de destination
           </template>
           <!-- WISH FORM ERRORS -->
           <div id="validation-errors" class="alert alert-danger" style="margin-bottom:0" v-if="validationErrors.length > 0">
             <div v-for="error in validationErrors" :key="error">{{ error }}</div>
           </div>
-          <div class="input-group mb-2 mt-2">
-            <div class="input-group-prepend"><span class="input-group-text"><font-awesome-icon :icon="icons.filter"/></span></div>
-            <input type="text" name="nom" class="form-control" maxlength="255" placeholder="Rechercher une liste"
-              v-model="searchText" @keyup="filterList()"/>
+          <div class="d-flex flex-row">
+            <div class="align-items-center mb-2 mt-2">
+              <b-list-group>
+                <b-list-group-item href="#" :active="'me' === currentListValue" @click="chooseList('me', true)">
+                  <WsImg :listInfo="user"/> {{ user.prenom+' '+user.nom }}
+                </b-list-group-item>
+              </b-list-group>
+            </div>
+            <div class="align-items-center flex-fill ml-5">
+              <div class="input-group mb-2 mt-2">
+                <div class="input-group-prepend"><span class="input-group-text"><font-awesome-icon :icon="icons.filter"/></span></div>
+                <input type="text" name="nom" class="form-control" maxlength="255" placeholder="Rechercher une liste"
+                  v-model="searchText" @keyup="filterList()"/>
+              </div>
+            </div>
           </div>
           <b-list-group>
             <b-list-group-item href="#" :active="follow.hashcode+'#'+follow.id === currentListValue"
              v-for="follow in filteredFollowList" :key="follow.hashcode+'#'+follow.id"
-             @click="chooseList(follow.hashcode+'#'+follow.id, true)">
+             @click="chooseList(follow.hashcode+'#'+follow.id, false)">
               <WsImg :listInfo="follow"/> {{ follow.prenom+' '+follow.nom }}
             </b-list-group-item>
             <b-list-group-item href="#" :active="shared.hashcode+'#'+shared.id === currentListValue"
              v-for="shared in filteredMyList" :key="shared.hashcode+'#'+shared.id"
-             @click="chooseList(shared.hashcode+'#'+shared.id, false)">
+             @click="chooseList(shared.hashcode+'#'+shared.id, true)">
               <WsImg :listInfo="shared"/> {{ shared.name }}
             </b-list-group-item>
           </b-list-group>
@@ -136,7 +155,7 @@
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faChevronDown, faChevronUp, faLock, faUnlock, faUser, faUsers, faFilter } from '@fortawesome/free-solid-svg-icons'
-import { faThumbsUp, faFile } from '@fortawesome/free-regular-svg-icons'
+import { faThumbsUp, faFile, faCircle } from '@fortawesome/free-regular-svg-icons'
 
 import { common } from '../../mixins/Common'
 import { chromeUtils } from '../../mixins/ChromeUtils'
@@ -153,6 +172,10 @@ export default {
     wishModel: {
       type: Object,
       required: true
+    },
+    user: {
+      type: Object,
+      required: true
     }
   },
   data() {
@@ -165,7 +188,7 @@ export default {
       filteredFollowList: [],
       showMore: false,
       errors: null,
-      icons: {happiness: faThumbsUp, down: faChevronDown, up: faChevronUp, lock: faLock, unlock: faUnlock, user: faUser, users: faUsers, filter: faFilter, wish: faFile},
+      icons: {happiness: faThumbsUp, down: faChevronDown, up: faChevronUp, lock: faLock, unlock: faUnlock, user: faUser, users: faUsers, filter: faFilter, wish: faFile, counter: faCircle},
       validationErrors: []
     }
   },
@@ -186,6 +209,7 @@ export default {
       })
     },
     chooseList(value, isMine) {
+      console.log(`chooseList ${value}|${isMine}`)
       this.currentListValue = value
       this.currentListType = isMine ? 'mine' : 'follow'
       this.validationErrors = []
@@ -211,8 +235,9 @@ export default {
         //const typeList = this.$store.state.currentListType
         //const currentValue = this.$store.state.currentListValue
         let listinfo = null
-        // check that a list has been selected (in footer)
+        // check that a list has been selected
         if (this.currentListType === 'follow') {
+          console.log('follow : ' + this.currentListValue)
           if (this.currentListValue && this.currentListValue.indexOf('#') !== -1) {
             listinfo = this.currentListValue.split('#')
             payload.userid = listinfo[1]
@@ -222,13 +247,14 @@ export default {
             this.validationErrors.push('Impossible de récupérer la liste de destination')
           }
         } else {
+          console.log(`mine (${this.currentListType}): ${this.currentListValue}`)
           // let currentValue = this.$store.state.currentListValue
           if (this.currentListValue && this.currentListValue.indexOf('#') !== -1) {
             listinfo = this.currentListValue.split('#')
             payload.sharedid = listinfo[1]
           } else if (this.currentListValue === '') {
             this.validationErrors.push('Veuillez choisir une liste de destination')
-          } else {
+          } else if (this.currentListValue !== 'me') {
             this.validationErrors.push('Impossible de récupérer la liste de destination')
           }
           payload.userid = storage.user.id
@@ -266,6 +292,7 @@ export default {
           payload.happiness = happiness
         }
         if (this.validationErrors.length === 0) {
+          console.log(payload)
           // Call API via mixins
           this.addWish(payload).then(response => {
             const data = response.data

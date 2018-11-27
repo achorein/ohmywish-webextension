@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import BootstrapVue from 'bootstrap-vue'
 import axios from 'axios'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { FontAwesomeIcon, FontAwesomeLayers, FontAwesomeLayersText } from '@fortawesome/vue-fontawesome'
 
 import App from './App-Popup.vue'
 
@@ -10,6 +10,8 @@ Vue.use(Vuex)
 Vue.use(BootstrapVue);
 Vue.config.productionTip = false
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('font-awesome-layers', FontAwesomeLayers)
+Vue.component('font-awesome-layers-text', FontAwesomeLayersText)
 
 axios.defaults.baseURL = 'https://api.wishing.space/'
 axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8'
