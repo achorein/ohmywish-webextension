@@ -136,15 +136,13 @@
             </div>
           </div>
           <b-list-group>
-            <b-list-group-item href="#" :active="follow.hashcode+'#'+follow.id === currentListValue"
-             v-for="follow in filteredFollowList" :key="follow.hashcode+'#'+follow.id"
-             @click="chooseList(follow.hashcode+'#'+follow.id, false)">
-              <WsImg :listInfo="follow"/> {{ follow.prenom+' '+follow.nom }}
-            </b-list-group-item>
-            <b-list-group-item href="#" :active="shared.hashcode+'#'+shared.id === currentListValue"
-             v-for="shared in filteredMyList" :key="shared.hashcode+'#'+shared.id"
-             @click="chooseList(shared.hashcode+'#'+shared.id, true)">
-              <WsImg :listInfo="shared"/> {{ shared.name }}
+            <b-list-group-item href="#" :active="listinfo.hashcode+'#'+listinfo.id === currentListValue"
+             v-for="listinfo in filteredListInfo" :key="listinfo.hashcode+'#'+listinfo.id"
+             @click="chooseList(listinfo.hashcode+'#'+listinfo.id, !listinfo.prenom)">
+              <WsImg :listInfo="listinfo"/> 
+              <span v-if="listinfo.prenom">{{ listinfo.prenom+' '+listinfo.nom }}</span> 
+              <span v-else>{{ listinfo.name }}</span>
+              <WsIcon :listInfo="listinfo"/>
             </b-list-group-item>
           </b-list-group>
         </b-tab>
@@ -161,12 +159,14 @@ import { common } from '../../mixins/Common'
 import { chromeUtils } from '../../mixins/ChromeUtils'
 import { userService } from '../../mixins/UserService'
 import WsImg from './WsImg'
+import WsIcon from './WsIcon'
 
 export default {
   name: 'WishForm',
   mixins: [common, chromeUtils, userService],
   components: {
-    WsImg
+    WsImg,
+    WsIcon
   },
   props: {
     wishModel: {
@@ -184,8 +184,7 @@ export default {
       currentListValue: '',
       tabIndex: 0,
       searchText: '',
-      filteredMyList: [],
-      filteredFollowList: [],
+      filteredListInfo: [],
       showMore: false,
       errors: null,
       icons: {happiness: faThumbsUp, down: faChevronDown, up: faChevronUp, lock: faLock, unlock: faUnlock, user: faUser, users: faUsers, filter: faFilter, wish: faFile, counter: faCircle},
@@ -194,19 +193,32 @@ export default {
   },
   methods: {
     initList() {
-      this.filteredFollowList = this.$store.state.followList
-      this.filteredMyList = this.$store.state.myList
       this.filterList()
     },
     filterList() {
-      this.filteredFollowList = this.$store.state.followList.filter(follow => {
-        const listText = follow.prenom + ' ' + follow.nom
-        return listText.toLowerCase().includes(this.searchText.toLowerCase())
-      }) 
-      this.filteredMyList = this.$store.state.myList.filter(list => {
-        const listText = list.name
-        return listText.toLowerCase().includes(this.searchText.toLowerCase())
+      let data = this.$store.state.followList.concat(this.$store.state.myList)
+        .filter(listinfo => {
+          const listText = (listinfo.prenom) ? listinfo.prenom + ' ' + listinfo.nom : listinfo.name
+          return listText.toLowerCase().includes(this.searchText.trim().toLowerCase())
+        })
+      // add star to my followed list
+      this.$store.state.myFollowList.forEach(mylistInfo => {
+        data.forEach(listInfo => {
+          if (listInfo.hashcode === mylistInfo.hashcode) {
+            listInfo.star = mylistInfo.star
+          }
+        })
       })
+      //  orderBy:['star', '+prenom', '+nom', '+name']
+      data.sort((a, b) => {
+          if (a.star !== b.star) {
+            return b.star - a.star;
+          }
+          const aname = (a.name) ? a.name : a.prenom + a.nom;
+          const bname = (b.name) ? b.name : b.prenom + b.nom;
+          return aname.localeCompare(bname);
+        })
+      this.filteredListInfo = data
     },
     chooseList(value, isMine) {
       console.log(`chooseList ${value}|${isMine}`)

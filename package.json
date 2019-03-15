@@ -1,6 +1,6 @@
 {
-  "name": "wishspace-chrome-extension-vue",
-  "version": "2.1.1",
+  "name": "wishspace-webextension-vue",
+  "version": "2.2.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",

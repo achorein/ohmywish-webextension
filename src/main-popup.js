@@ -20,9 +20,10 @@ const store = new Vuex.Store({
   state: {
     messages: [],
     myList: [],
+    myFollowList: [],
+    followList: [],
     currentListType: null,
     currentListValue: '',
-    followList: [],
     pageid: null
   },
   mutations: {
@@ -33,10 +34,21 @@ const store = new Vuex.Store({
       state.messages = []
     },
     addMyList(state, newList) {
+      newList.forEach(listInfo => {
+        if (!listInfo.star) { listInfo.star = 0; }
+      })
       state.myList = newList
     },
     addFollowList(state, newList) {
-      state.followList = newList
+      newList.forEach(listInfo => {
+        if (!listInfo.star) { listInfo.star = 0; }
+      })
+      state.followList = newList.filter(listinfo => {
+        return listinfo.prenom
+      })
+      state.myFollowList = newList.filter(listinfo => {
+        return !listinfo.prenom && listinfo.star === 1
+      })
     },
     setPageId(state, pageid) {
       state.pageid = pageid

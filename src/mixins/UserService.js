@@ -40,20 +40,11 @@ export const userService = {
             }
             // Récupération de la liste des listes partagées
             axios.get('/user/shared/list').then(response => {
-                response.data.sort(function(a, b){
-                return a.name.localeCompare(b.name)
-                })
                 this.$store.commit('addMyList', response.data)
             }).catch(error => {
                 this.showError('Erreur lors du chargement de mes listes : ' + error.response.data.message)
             })
-            axios.get('/user/follow/list?useronly=true').then(response => {
-              response.data.sort(function(a, b){
-                if (!a.prenom) {
-                  return -1
-                }
-                return a.prenom.localeCompare(b.prenom)
-              })
+            axios.get('/user/follow/list').then(response => {
               this.$store.commit('addFollowList', response.data)
             }).catch(error => {
                 this.showError('Erreur lors du chargement des follows : ' + error.response.data.message)
@@ -72,7 +63,7 @@ const DATA_MY_LIST = [
     {
         "id": 4,
         "date": null,
-        "name": "My List 4",
+        "name": "a - My List 4",
         "hashcode": "liste4",
         "paypalemail": null,
         "description": null,
@@ -94,7 +85,7 @@ const DATA_MY_LIST = [
     {
         "id": 20,
         "date": "2018-01-18T08:46:27.000Z",
-        "name": "My List 20",
+        "name": "d - My List 20",
         "hashcode": "liste20",
         "paypalemail": null,
         "description": null,
@@ -120,24 +111,70 @@ const DATA_FOLLOW_LIST = [
         "id": 5,
         "hashcode": "liste5=",
         "nom": "Follow",
-        "prenom": "Mister5",
+        "prenom": "b - Mister5",
         "gravstyle": "none",
         "image": null,
         "imageurl": null,
         "email": "liste5@test.com",
         "gravatar": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-        "star": 1
+        "star": null
     },
     {
         "id": 29,
         "hashcode": "liste29=",
         "nom": "Follow",
-        "prenom": "Mister29",
+        "prenom": "c - Mister29",
         "gravstyle": null,
         "image": null,
         "imageurl": null,
         "email": "liste29",
         "gravatar": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "star": 1
+    },
+    {
+        "id": 4,
+        "date": null,
+        "name": "a - My List 4",
+        "hashcode": "liste4",
+        "paypalemail": null,
+        "description": null,
+        "restriction": "restricted",
+        "dateevt": "2018-10-17T22:00:00.000Z",
+        "image": 1,
+        "background": 1,
+        "color": "ws-bg-green",
+        "typeshared": 3,
+        "userfk": 1,
+        "withfk": 1,
+        "with": null,
+        "usr": {
+            "nom": "Doe",
+            "prenom": "John",
+            "hashcode": "johndoe="
+        },
         "star": null
+    },
+    {
+        "id": 20,
+        "date": "2018-01-18T08:46:27.000Z",
+        "name": "d - My List 20",
+        "hashcode": "liste20",
+        "paypalemail": null,
+        "description": null,
+        "restriction": "private",
+        "dateevt": null,
+        "image": null,
+        "background": 1,
+        "color": null,
+        "typeshared": 3,
+        "userfk": 1,
+        "withfk": 1,
+        "with": null,
+        "usr": {
+            "nom": "Doe",
+            "prenom": "John",
+            "hashcode": "johndoe="
+        },
+        "star": 1
     }
 ]
