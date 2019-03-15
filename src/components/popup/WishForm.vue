@@ -313,11 +313,11 @@ export default {
             // show result page
             let url='https://www.wishing.space'
             if (payload.sharedid) {
-              url += '/'+listinfo[0]+'/'+data.id
+              url += '/'+encodeURIComponent(listinfo[0])+'/'+data.id
             } else if (payload.userid !== storage.user.id) {
-              url += '/'+listinfo[0]+'/'+data.id
+              url += '/'+encodeURIComponent(listinfo[0])+'/'+data.id
             } else {
-              url += '/'+storage.user.hashcode+'/'+data.id
+              url += '/'+encodeURIComponent(storage.user.hashcode)+'/'+data.id
             }
             this.$emit('wishAdded', url)
           }).catch(error => {

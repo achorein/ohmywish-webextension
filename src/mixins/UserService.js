@@ -88,7 +88,7 @@ const DATA_MY_LIST = [
         "usr": {
             "nom": "Doe",
             "prenom": "John",
-            "hashcode": "johndoe"
+            "hashcode": "johndoe="
         }
     },
     {
@@ -110,7 +110,7 @@ const DATA_MY_LIST = [
         "usr": {
             "nom": "Doe",
             "prenom": "John",
-            "hashcode": "johndoe"
+            "hashcode": "johndoe="
         }
     }
 ]
@@ -118,7 +118,7 @@ const DATA_MY_LIST = [
 const DATA_FOLLOW_LIST = [
     {
         "id": 5,
-        "hashcode": "liste5",
+        "hashcode": "liste5=",
         "nom": "Follow",
         "prenom": "Mister5",
         "gravstyle": "none",
@@ -130,7 +130,7 @@ const DATA_FOLLOW_LIST = [
     },
     {
         "id": 29,
-        "hashcode": "liste29",
+        "hashcode": "liste29=",
         "nom": "Follow",
         "prenom": "Mister29",
         "gravstyle": null,
