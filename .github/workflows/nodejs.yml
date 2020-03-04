@@ -1,0 +1,28 @@
+name: Node.js CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [8.x, 10.x, 12.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: mkdir release
+    - run: yarn build-chrome
+    - run: cd dist && zip -r9 wishing-space-webextension-chrome.zip * && mv *.zip ../release ; cd ..
+    - run: yarn build-ff
+    - run: cd dist && zip -r9 wishing-space-webextension-firefox.zip * && mv *.zip ../release ; cd ..
+    - run: yarn build-opera
+    - run: cd dist && zip -r9 wishing-space-webextension-opera.zip * && mv *.zip ../release ; cd ..
+      env:
+        CI: true
