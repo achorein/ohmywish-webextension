@@ -4,7 +4,7 @@
   "name": "Mes Listes Magiques Extension",
   "short_name": "Mes Listes Magiques",
   "description": "Cette extension permet de rajouter facilement des souhaits sur le site de Mes Listes Magiques",
-  "version": "2.3.0",
+  "version": "3.0.0",
   "icons": {
     "16": "img/icon16.png",
     "48": "img/icon48.png",
