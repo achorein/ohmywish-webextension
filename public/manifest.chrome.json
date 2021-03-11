@@ -1,27 +1,23 @@
 {
   "manifest_version": 2,
 
-  "name": "Wishing Space Extension",
-  "short_name": "Wishing Space",
-  "description": "Cette extension permet de rajouter facilement des souhaits sur le site de Wishing.space",
-  "version": "2.2.0",
-  "icons": { 
+  "name": "Mes Listes Magiques Extension",
+  "short_name": "Mes Listes Magiques",
+  "description": "Cette extension permet de rajouter facilement des souhaits sur le site de Mes Listes Magiques",
+  "version": "2.3.0",
+  "icons": {
     "16": "img/icon16.png",
     "48": "img/icon48.png",
     "64": "img/icon64.png",
     "128": "img/icon128.png"
   },
   "author": "Anselme Chorein",
-  "homepage_url": "https://www.wishing.space",
+  "homepage_url": "https://meslistesmagiques.fr",
   "options_page": "options.html",
   "browser_action": {
     "default_icon": "img/icon.png",
     "default_popup": "popup.html",
-    "default_title": "Ajouter un souhait à votre liste Wishing Space"
+    "default_title": "Ajouter un souhait à votre liste Mes Listes Magiques"
   },
-  "permissions": [
-    "activeTab",
-    "storage",
-    "https://api.wishing.space/*"
-  ]
+  "permissions": ["activeTab", "storage", "https://api.meslistesmagiques.fr/*"]
 }
