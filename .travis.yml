@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "lts/*"
+  - 'lts/*'
 
 script:
   - mkdir release
@@ -8,7 +8,7 @@ script:
   - cd dist && zip -r9 wishing-space-webextension-chrome.zip * && mv *.zip ../release ; cd ..
   - yarn build-ff
   - cd dist && zip -r9 wishing-space-webextension-firefox.zip * && mv *.zip ../release ; cd ..
-   - yarn build-opera
+  - yarn build-opera
   - cd dist && zip -r9 wishing-space-webextension-opera.zip * && mv *.zip ../release ; cd ..
 
 before_deploy:
@@ -18,9 +18,8 @@ before_deploy:
 
 deploy:
   - provider: releases
-    api_key:
-      secure: $GITHUB_OAUTHKEY
-    file: 
+    api_key: $GITHUB_OAUTHKEY
+    file:
       - release/wishing-space-webextension-chrome-${TRAVIS_TAG}.zip
       - release/wishing-space-webextension-firefox-${TRAVIS_TAG}.zip
       - release/wishing-space-webextension-opera-${TRAVIS_TAG}.zip
