@@ -16,6 +16,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - run: yarn install
       - run: mkdir release
       - run: yarn build-chrome
       - run: cd dist && zip -r9 wishing-space-webextension-chrome.zip * && mv *.zip ../release ; cd ..
