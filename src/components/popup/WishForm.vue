@@ -410,7 +410,7 @@ export default {
                 },
               );
               // show result page
-              let url = 'https://meslistesmagiques.fr';
+              let url = 'https://app.meslistesmagiques.fr';
               if (payload.sharedid) {
                 url += '/' + encodeURIComponent(listinfo[0]) + '/' + data.id;
               } else if (payload.userid !== storage.user.id) {
