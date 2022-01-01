@@ -1,20 +1,19 @@
 $theme-colors: (
-  'primary': #f0bc5e,
-  'secondary': #ffffc8,
-  'dark': #454545,
+  'primary': #ee325a,
+  'secondary': #4b4b4b,
+  'dark': #4b4b4b,
   'gray': #7b8488,
-  'yellow': #faf089,
-  'danger': #ff7575,
-  // 'warning': #8a6d3b,
-    'success': #59955c,
+  'yellow': #ff9f02,
+  'danger': #ff0000,
+  'success': #59955c,
   'info': #7ba7e1,
   'muted': #7d868e,
 );
 
 $breadcrumb-divider: quote('>');
 
-@import url(https://fonts.googleapis.com/css?family=Comic+Neue);
-@import url(https://fonts.googleapis.com/css?family=Playball);
+@import url(https://fonts.googleapis.com/css?family=Aleo);
+@import url(https://fonts.googleapis.com/css?family=Galada);
 
 @import 'node_modules/bootstrap/scss/bootstrap.scss';
 @import 'node_modules/bootstrap-vue/src/index.scss';
@@ -27,7 +26,7 @@ body {
   background-attachment: fixed;
   background-size: cover;
   color: var(--dark);
-  font-family: 'Comic Neue', Helvetica, Arial, sans-serif !important;
+  font-family: 'Aleo', Helvetica, Arial, sans-serif !important;
 }
 
 .options-content {
@@ -53,7 +52,7 @@ body {
 
 .navbar {
   background: var(--primary) !important;
-  border-bottom: 2px solid var(--secondary) !important;
+  // border-bottom: 2px solid var(--secondary) !important;
   color: var(--dark);
 }
 
@@ -63,7 +62,7 @@ body {
 }
 
 .navbar-brand {
-  background-image: url('./brand-mini.png');
+  background-image: url('./brand-reverse.png');
   background-repeat: no-repeat;
   padding-left: 53px !important;
   background-size: 32px;
@@ -71,6 +70,10 @@ body {
 
 .button-cursor {
   cursor: pointer;
+}
+
+.btn-yellow {
+  color: white;
 }
 
 // .alert-muted,

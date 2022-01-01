@@ -1,8 +1,9 @@
 {
   "name": "wishspace-webextension-vue",
-  "version": "3.0.1",
+  "version": "4.0.0",
   "private": true,
   "scripts": {
+    "dev": "vue-cli-service serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "build-ff": "vue-cli-service build && mv dist/manifest.firefox.json dist/manifest.json && rm dist/manifest.chrome.json",

@@ -1,7 +1,6 @@
 <template>
   <div class="modal-header panel-heading d-flex">
-    <!-- <font-awesome-icon :icon="icons.plus" size="2x" class="mr-2 align-self-center" /> -->
-    <img src="img/icon.png" height="30" alt="" />
+    <img src="img/brand-reverse.png" height="48" alt="" />
     <h4 class="modal-title">Ajouter un souhait</h4>
     <WsImg
       :listInfo="user"
@@ -44,7 +43,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .modal-header {
-  background: var(--dark);
+  background: var(--primary);
   color: var(--white);
 }
 </style>

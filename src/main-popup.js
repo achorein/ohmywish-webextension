@@ -16,7 +16,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('font-awesome-layers', FontAwesomeLayers);
 Vue.component('font-awesome-layers-text', FontAwesomeLayersText);
 
-axios.defaults.baseURL = 'https://api.meslistesmagiques.fr/';
+axios.defaults.baseURL = 'https://api.ohmywish.me/';
 axios.defaults.headers.common['extversion'] = packageInfo.version;
 axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
 

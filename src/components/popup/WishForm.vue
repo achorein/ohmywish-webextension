@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="float-right">
-      <b-btn size="sm" :variant="tabIndex == 0 ? 'outline-success' : 'success'" @click="okAction()">
+      <b-btn size="sm" :variant="tabIndex == 0 ? 'outline-primary' : 'primary'" @click="okAction()">
         <span v-if="tabIndex == 0">Suivant</span>
         <span v-else>Enregistrer</span>
       </b-btn>
@@ -87,10 +87,10 @@
             </div>
           </div>
           <div class="mb-3">
-            <a id="show-more" class="btn btn-yellow" v-if="!showMore" @click="showMore = true"
+            <a id="show-more" class="btn btn-dark" v-if="!showMore" @click="showMore = true"
               ><font-awesome-icon :icon="icons.down" /> Plus de caractéristiques</a
             >
-            <a id="show-less" class="btn btn-yellow" v-if="showMore" @click="showMore = false"
+            <a id="show-less" class="btn btn-dark" v-if="showMore" @click="showMore = false"
               ><font-awesome-icon :icon="icons.up" /> Moins de caractéristiques</a
             >
           </div>
@@ -410,7 +410,7 @@ export default {
                 },
               );
               // show result page
-              let url = 'https://app.meslistesmagiques.fr';
+              let url = 'https://app.ohmywish.me';
               if (payload.sharedid) {
                 url += '/' + encodeURIComponent(listinfo[0]) + '/' + data.id;
               } else if (payload.userid !== storage.user.id) {
@@ -454,7 +454,7 @@ export default {
   font-weight: bold;
   color: #333 !important;
 }
-.nav-tabs .nav-link.active {
+/* .nav-tabs .nav-link.active {
   background-color: #fcf8e3 !important;
-}
+} */
 </style>

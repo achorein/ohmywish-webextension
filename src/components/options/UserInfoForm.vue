@@ -7,7 +7,7 @@
       </h2>
       <p class="alert alert-info">
         Pour utiliser cette extension un compte est nécessaire sur le site
-        <a href="https://meslistesmagiques.fr" target="_blank">Mes Listes Magiques</a>.
+        <a href="https://ohmywish.me" target="_blank">Oh My Wish</a>.
       </p>
       <Messages></Messages>
       <form name="infoForm">
@@ -34,7 +34,7 @@
       </form>
     </div>
     <div>
-      <button class="btn btn-primary float-right" @click="save()">Sauvegarder</button>
+      <button class="btn btn-dark float-right" @click="save()">Sauvegarder</button>
       <button class="btn btn-danger" @click="reinit()">Reinitialiser</button>
     </div>
   </div>

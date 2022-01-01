@@ -125,7 +125,7 @@ export default {
 <style>
 body {
   width: 768px;
-  border: 2px solid var(--yellow) !important;
+  border: 2px solid var(--dark) !important;
   border-radius: 5px;
   overflow-x: hidden;
 }

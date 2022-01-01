@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faUserCircle, faGift, faUser } from '@fortawesome/free-solid-svg-icons';
 export default {
   name: 'WsImg',

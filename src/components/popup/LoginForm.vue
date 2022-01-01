@@ -3,7 +3,7 @@
   <div>
     <p class="notice">
       Pour utiliser cette extension, veux devez disposer d'un compte sur le site
-      <a href="https://meslistesmagiques.fr" target="_blank">Mes Listes Magiques</a>.
+      <a href="https://ohmywish.me" target="_blank">Oh My Wish</a>.
     </p>
     <form name="infoForm">
       <div class="form-group row">
@@ -29,7 +29,7 @@
         </div>
       </div>
     </form>
-    <button class="btn btn-yellow mb-3" @click="connect(user)">Se connecter</button>
+    <button class="btn btn-dark mb-3" @click="connect(user)">Se connecter</button>
   </div>
 </template>
 
@@ -76,6 +76,9 @@ export default {
     checkConnexion(user) {
       console.log('Check if user is already auhtentificated...');
       this.showMessage('Chargement...');
+      if (user.token) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + user.token;
+      }
       // Call API via mixins
       this.checkAuth()
         .then(response => {

@@ -13,7 +13,7 @@ Vue.use(BootstrapVue);
 Vue.config.productionTip = false;
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
-axios.defaults.baseURL = 'https://api.meslistesmagiques.fr/';
+axios.defaults.baseURL = 'https://api.ohmywish.me/';
 axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
 
 const store = new Vuex.Store({

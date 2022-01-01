@@ -3,7 +3,7 @@
     <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="https://meslistesmagiques.fr" target="_blank"> Mes Listes Magiques</a>
+          <a class="navbar-brand" href="https://ohmywish.me" target="_blank"> Oh My Wish !</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <p class="navbar-text navbar-right"><b>Extension Options</b></p>

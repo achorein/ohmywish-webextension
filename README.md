@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/achorein/wishspace-webextension.svg?branch=master)](https://travis-ci.org/achorein/wishspace-webextension)
 
-Cette extension permet de rajouter facilement des souhaits sur le site de [Mes listes magiques](https://meslistesmagiques.fr).
+Cette extension permet de rajouter facilement des souhaits sur le site de [Oh My Wish](https://ohmywish.me).
 
 Portée sur :
 
