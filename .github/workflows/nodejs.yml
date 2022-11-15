@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
 
     steps:
       - uses: actions/checkout@v2
@@ -19,10 +19,10 @@ jobs:
       - run: yarn install
       - run: mkdir release
       - run: yarn build-chrome
-      - run: cd dist && zip -r9 wishing-space-webextension-chrome.zip * && mv *.zip ../release ; cd ..
+      - run: cd dist && zip -r9 ohmywish-webextension-chrome.zip * && mv *.zip ../release ; cd ..
       - run: yarn build-ff
-      - run: cd dist && zip -r9 wishing-space-webextension-firefox.zip * && mv *.zip ../release ; cd ..
+      - run: cd dist && zip -r9 ohmywish-webextension-firefox.zip * && mv *.zip ../release ; cd ..
       - run: yarn build-opera
-      - run: cd dist && zip -r9 wishing-space-webextension-opera.zip * && mv *.zip ../release ; cd ..
+      - run: cd dist && zip -r9 ohmywish-webextension-opera.zip * && mv *.zip ../release ; cd ..
         env:
           CI: true
