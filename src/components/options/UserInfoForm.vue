@@ -81,7 +81,7 @@ export default {
       }
       const that = this;
       // Call API via mixins to validate account and get token
-      this.loginUser({ username: this.email, password: this.password })
+      this.loginUser({ email: this.email, password: this.password })
         .then(response => {
           let user = response.data;
           user.email = that.email;

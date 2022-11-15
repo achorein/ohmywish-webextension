@@ -96,7 +96,7 @@ export default {
           console.log(error.response);
           if (error.response.status === 401) {
             // session expired
-            this.login();
+            this.login(user);
           } else {
             this.showError("Erreur lors du l'authentification : " + error.response.data.message);
           }
