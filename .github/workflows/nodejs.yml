@@ -24,5 +24,7 @@ jobs:
       - run: cd dist && zip -r9 ohmywish-webextension-firefox.zip * && mv *.zip ../release ; cd ..
       - run: yarn build-opera
       - run: cd dist && zip -r9 ohmywish-webextension-opera.zip * && mv *.zip ../release ; cd ..
+      - run: yarn build-edge
+      - run: cd dist && zip -r9 ohmywish-webextension-edge.zip * && mv *.zip ../release ; cd ..
         env:
           CI: true
