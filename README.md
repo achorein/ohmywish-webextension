@@ -9,6 +9,6 @@ Portée sur :
 - Opera : https://addons.opera.com/en/extensions/details/wishing-space-extension/
 - Edge : Coming soon
 
-<img src="public/img/whishing.space-chrome-extension.png" height="200">
+<img src="public/img/ohmywish-chrome-extension.png" height="200">
 
 "WebExtension" développée en [VueJS](https://vuejs.org/)
