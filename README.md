@@ -7,7 +7,7 @@ Portée sur :
 - Chrome : https://chrome.google.com/webstore/detail/ohmywish-extension/dbplipoilikkimhhencoefbhehimefba
 - Firefox : https://addons.mozilla.org/fr/firefox/addon/ohmywish-extension/
 - Opera : https://addons.opera.com/en/extensions/details/wishing-space-extension/
-- Edge : Coming soon
+- Edge : https://microsoftedge.microsoft.com/addons/detail/oh-my-wish-extension/fpkinfdidhpgppokihmoianbjhadpbgh
 
 <img src="public/img/ohmywish-chrome-extension.png" height="200">
 
