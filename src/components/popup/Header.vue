@@ -1,6 +1,6 @@
 <template>
   <div class="modal-header panel-heading d-flex">
-    <img src="img/brand-reverse.png" height="48" alt="" />
+    <a href="https://app.ohmywish.me" target="_blank"><img src="img/brand-reverse.png" height="48" alt=""/></a>
     <h4 class="modal-title">Ajouter un souhait</h4>
     <WsImg
       :listInfo="user"

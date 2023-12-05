@@ -3,11 +3,11 @@
   "name": "Oh My Wish Extension",
   "short_name": "Oh My Wish",
   "description": "Cette extension permet de rajouter facilement des souhaits sur le site de Oh My Wish",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "author": "Anselme Chorein",
   "homepage_url": "https://ohmywish.me",
   "options_page": "options.html",
-    "icons": {
+  "icons": {
     "16": "img/icon16.png",
     "48": "img/icon48.png",
     "64": "img/icon64.png",

@@ -376,7 +376,7 @@ export default {
         }
         var prix = this.wishModel.prix;
         if (prix !== '' && prix >= 0) {
-          payload.prix = prix;
+          payload.prix = Math.floor(prix);
         }
         var info = this.wishModel.info;
         if (info && info.length >= 0) {
@@ -384,7 +384,7 @@ export default {
         }
         var happiness = this.wishModel.happiness;
         if (happiness !== '' && happiness > 0) {
-          payload.happiness = happiness;
+          payload.happiness = happiness > 5 ? 5 : Math.floor(happiness);
         }
         if (this.validationErrors.length === 0) {
           console.log(payload);
@@ -439,6 +439,18 @@ export default {
           lastinfo[pageid] = {};
         }
         lastinfo[pageid][name] = value;
+        if (name === 'happiness') {
+          let newValue = Math.floor(value);
+          if (newValue > 5) {
+            newValue = 5;
+          }
+          this.wishModel[name] = newValue;
+          lastinfo[pageid][name] = newValue;
+        } else if (name === 'prix') {
+          const newValue = Math.floor(value);
+          this.wishModel[name] = newValue;
+          lastinfo[pageid][name] = newValue;
+        }
         // save new last to persistent cache (mixins)
         this.storageSet({
           lastinfo: lastinfo,
