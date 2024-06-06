@@ -1,6 +1,6 @@
 {
   "name": "wishspace-webextension-vue",
-  "version": "4.0.2",
+  "version": "4.0.4",
   "private": true,
   "scripts": {
     "dev": "vue-cli-service serve",
@@ -25,6 +25,8 @@
     "vuex": "^3.6.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
     "@vue/cli-plugin-babel": "~5.0.8",
     "@vue/cli-plugin-eslint": "~5.0.8",
     "@vue/cli-service": "~5.0.8",
@@ -32,9 +34,10 @@
     "eslint-plugin-vue": "^8.0.3",
     "node-sass": "^6.0.0",
     "sass-loader": "^10.0.0",
-    "vue-template-compiler": "^2.7.15",
-    "@babel/eslint-parser": "^7.12.16",
-    "@babel/core": "^7.12.16"
+    "vue-template-compiler": "^2.7.15"
+  },
+  "resolutions": {
+    "node-gyp": "^10"
   },
   "eslintConfig": {
     "root": true,

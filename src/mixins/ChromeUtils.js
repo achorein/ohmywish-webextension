@@ -18,18 +18,26 @@ export const chromeUtils = {
         callback(params);
       }
     },
-    getTabs(callback) {
+    getCurrentTab(callback) {
       if (!devMode) {
-        chrome.tabs.query({ active: true, currentWindow: true }, callback);
+        chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
+          if (chrome.runtime.lastError) console.error(chrome.runtime.lastError);
+          // `tab` will either be a `tabs.Tab` instance or `undefined`.
+          callback(tab);
+        });
       } else {
         callback([{ url: 'http://localhost', title: 'Dev mode' }]);
       }
     },
     executeScriptOnTab(callback) {
       if (!devMode) {
-        chrome.tabs.executeScript({ file: '/js/tab.js' }, callback);
+        this.getCurrentTab(tab => {
+          chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ['/js/tab.js'] }).then(injectionResults => {
+            callback(injectionResults[0].result);
+          });
+        });
       } else {
-        callback([{ url: 'http://localhost:8080', title: 'Dev mode', description: 'description', image: 'http://localhost:8080/img/brand.png' }]);
+        callback({ url: 'http://localhost:8080', title: 'Dev mode', description: 'description', image: 'http://localhost:8080/img/brand.png' });
       }
     },
   },

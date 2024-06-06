@@ -51,8 +51,7 @@ export default {
       // retrieved users lists and follows from API (mixins)
       this.getLists();
       // Get current tab URL (mixins)
-      this.getTabs(tabs => {
-        const tab = tabs[0];
+      this.getCurrentTab(tab => {
         // get data from persistent cache (mixins)
         this.storageGet(
           {
@@ -68,11 +67,11 @@ export default {
             this.wishModel.happiness = this.getDataFromCache('happiness', '', storage); // mixins
 
             // Parse DOM to get more informations (mixins)
-            this.executeScriptOnTab(results => {
-              if (!results) {
+            this.executeScriptOnTab(result => {
+              if (!result) {
+                console.log('Error while executing script on tab');
                 return; // error
               }
-              const result = results[0];
               const nom = this.getDataFromCache('nom', result.title, storage); // mixins
               if (nom.length > 0) {
                 this.wishModel.nom = nom;
